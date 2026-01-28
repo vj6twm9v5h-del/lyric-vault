@@ -1,0 +1,335 @@
+{
+  "project": "Lyric Vault",
+  "description": "Local-first CLI tool for capturing and intelligently retrieving lyrical ideas using Ollama",
+  "completion_signal": "<promise>COMPLETE</promise>",
+  "userStories": [
+    {
+      "id": "US-001",
+      "title": "Project Setup and TypeScript Configuration",
+      "description": "Initialize the project with TypeScript, configure build tools, and set up basic project structure",
+      "acceptance_criteria": [
+        "package.json created with required dependencies (typescript, commander, chalk, better-sqlite3, axios)",
+        "tsconfig.json configured with strict mode",
+        "src/ directory structure created (commands/, db/, ai/, utils/, types/)",
+        "Build script runs successfully (npm run build produces dist/)",
+        "Type definitions in src/types/index.ts export Lyric, LyricAnalysis, LyricSuggestion, SearchQuery, Config interfaces"
+      ],
+      "status": "todo",
+      "passes": false
+    },
+    {
+      "id": "US-002",
+      "title": "Database Schema and Connection",
+      "description": "Create SQLite database schema and implement database connection layer",
+      "acceptance_criteria": [
+        "src/db/schema.sql creates lyrics table with all required columns",
+        "src/db/database.ts exports LyricDatabase class",
+        "Database file created at ~/.lyric-vault/lyrics.db on first run",
+        "LyricDatabase.initialize() creates table and indexes",
+        "LyricDatabase.close() properly closes connection"
+      ],
+      "status": "todo",
+      "passes": false,
+      "depends_on": ["US-001"]
+    },
+    {
+      "id": "US-003",
+      "title": "Configuration Management",
+      "description": "Implement config file loading and saving with defaults",
+      "acceptance_criteria": [
+        "src/utils/config.ts exports loadConfig() and saveConfig() functions",
+        "Default config includes ollama_model, ollama_url, database_path",
+        "Config saved to ~/.lyric-vault/config.json",
+        "loadConfig() returns defaults if config file doesn't exist",
+        "Config file is valid JSON"
+      ],
+      "status": "todo",
+      "passes": false,
+      "depends_on": ["US-001"]
+    },
+    {
+      "id": "US-004",
+      "title": "Ollama Client Integration",
+      "description": "Create Ollama API client with connection testing and analysis methods",
+      "acceptance_criteria": [
+        "src/ai/ollama.ts exports OllamaClient class",
+        "OllamaClient.testConnection() successfully checks Ollama availability",
+        "OllamaClient.analyzeLyric() sends prompt and parses JSON response",
+        "Analysis returns themes, rhyme_patterns, mood, imagery_tags",
+        "Graceful error handling when Ollama is unavailable"
+      ],
+      "status": "todo",
+      "passes": false,
+      "depends_on": ["US-001", "US-003"]
+    },
+    {
+      "id": "US-005",
+      "title": "Prompt Templates for Analysis",
+      "description": "Create well-engineered prompts for lyric analysis and suggestions",
+      "acceptance_criteria": [
+        "src/ai/prompts.ts exports ANALYSIS_PROMPT function",
+        "ANALYSIS_PROMPT returns JSON-only instruction with no markdown",
+        "Prompt includes guidelines for themes, rhyme patterns, mood, imagery",
+        "src/ai/prompts.ts exports SUGGESTION_PROMPT function",
+        "SUGGESTION_PROMPT includes current lyric context and adaptation requirements"
+      ],
+      "status": "todo",
+      "passes": false,
+      "depends_on": ["US-001"]
+    },
+    {
+      "id": "US-006",
+      "title": "Terminal Formatting Utilities",
+      "description": "Create formatting functions for clean CLI output with colors",
+      "acceptance_criteria": [
+        "src/utils/formatting.ts exports formatLyric() function",
+        "formatLyric() displays lyric with ID, text, date, themes (using chalk)",
+        "src/utils/formatting.ts exports formatSuggestion() function",
+        "src/utils/formatting.ts exports formatSuccess(), formatError(), formatWarning()",
+        "All formatting uses chalk for colors (green for success, red for error, yellow for warning)"
+      ],
+      "status": "todo",
+      "passes": false,
+      "depends_on": ["US-001"]
+    },
+    {
+      "id": "US-007",
+      "title": "Rhyme Pattern Utilities",
+      "description": "Implement rhyme extraction and matching algorithms",
+      "acceptance_criteria": [
+        "src/utils/rhyme.ts exports extractRhymePatterns() function",
+        "extractRhymePatterns() returns array of ending sounds from text",
+        "src/utils/rhyme.ts exports rhymeMatch() function",
+        "rhymeMatch() compares two patterns and returns boolean",
+        "src/utils/rhyme.ts exports calculateRhymeScore() function that compares pattern arrays"
+      ],
+      "status": "todo",
+      "passes": false,
+      "depends_on": ["US-001"]
+    },
+    {
+      "id": "US-008",
+      "title": "Setup Command Implementation",
+      "description": "Create lyric setup command for first-run initialization",
+      "acceptance_criteria": [
+        "src/commands/setup.ts exports setupCommand() function",
+        "Command tests Ollama connection and reports status",
+        "Command initializes database and displays stats",
+        "Command saves config file",
+        "Command provides clear error messages if Ollama is not available",
+        "Running 'npm run dev setup' completes without errors"
+      ],
+      "status": "todo",
+      "passes": false,
+      "depends_on": ["US-002", "US-003", "US-004"]
+    },
+    {
+      "id": "US-009",
+      "title": "Add Command Implementation",
+      "description": "Create lyric add command to capture new lyrics with AI analysis",
+      "acceptance_criteria": [
+        "src/commands/add.ts exports addCommand() function",
+        "Command accepts lyric text as argument",
+        "Command calls Ollama to analyze lyric",
+        "Command saves lyric to database with analysis",
+        "Command displays confirmation with themes, rhyme patterns, mood",
+        "Running 'npm run dev add \"test lyric\"' saves to database and shows output"
+      ],
+      "status": "todo",
+      "passes": false,
+      "depends_on": ["US-002", "US-004", "US-005", "US-006"]
+    },
+    {
+      "id": "US-010",
+      "title": "List Command Implementation",
+      "description": "Create lyric list command to browse recent entries",
+      "acceptance_criteria": [
+        "src/commands/list.ts exports listCommand() function",
+        "Command accepts --recent option with default of 10",
+        "Command retrieves lyrics from database sorted by date",
+        "Command displays formatted output using formatLyric()",
+        "Running 'npm run dev list' shows recent lyrics",
+        "Running 'npm run dev list --recent 5' shows only 5 lyrics"
+      ],
+      "status": "todo",
+      "passes": false,
+      "depends_on": ["US-002", "US-006"]
+    },
+    {
+      "id": "US-011",
+      "title": "Search Command Implementation",
+      "description": "Create lyric search command to filter by theme, rhyme, or mood",
+      "acceptance_criteria": [
+        "src/commands/search.ts exports searchCommand() function",
+        "Command parses query format: theme:X rhyme:Y mood:Z",
+        "Command queries database with filters",
+        "Command displays results with full metadata",
+        "Running 'npm run dev search \"theme:love\"' returns matching lyrics",
+        "Running 'npm run dev search \"rhyme:ight mood:sad\"' filters correctly"
+      ],
+      "status": "todo",
+      "passes": false,
+      "depends_on": ["US-002", "US-006"]
+    },
+    {
+      "id": "US-012",
+      "title": "Show Command Implementation",
+      "description": "Create lyric show command to display full details of a specific lyric",
+      "acceptance_criteria": [
+        "src/commands/show.ts exports showCommand() function",
+        "Command accepts lyric ID as argument",
+        "Command retrieves lyric from database by ID",
+        "Command displays full lyric details including all metadata",
+        "Running 'npm run dev show 1' displays lyric #1 details",
+        "Command shows error if ID doesn't exist"
+      ],
+      "status": "todo",
+      "passes": false,
+      "depends_on": ["US-002", "US-006"]
+    },
+    {
+      "id": "US-013",
+      "title": "Delete Command Implementation",
+      "description": "Create lyric delete command to remove lyrics from vault",
+      "acceptance_criteria": [
+        "src/commands/delete.ts exports deleteCommand() function",
+        "Command accepts lyric ID as argument",
+        "Command deletes lyric from database",
+        "Command shows success or error message",
+        "Running 'npm run dev delete 1' removes lyric #1",
+        "Attempting to delete non-existent ID shows appropriate error"
+      ],
+      "status": "todo",
+      "passes": false,
+      "depends_on": ["US-002", "US-006"]
+    },
+    {
+      "id": "US-014",
+      "title": "Suggest Command - Matching Logic",
+      "description": "Implement core matching algorithm for finding relevant lyric fragments",
+      "acceptance_criteria": [
+        "src/commands/suggest.ts exports suggestCommand() function",
+        "Command analyzes input lyric using Ollama",
+        "Command retrieves all lyrics from database",
+        "Command calculates match scores based on themes, rhymes, mood",
+        "Command ranks suggestions by score",
+        "Match reasons are tracked and displayed"
+      ],
+      "status": "todo",
+      "passes": false,
+      "depends_on": ["US-002", "US-004", "US-005", "US-007"]
+    },
+    {
+      "id": "US-015",
+      "title": "Suggest Command - AI Adaptations",
+      "description": "Add AI-powered lyric adaptation suggestions to suggest command",
+      "acceptance_criteria": [
+        "Command generates adaptations for top 3 suggestions using Ollama",
+        "Adaptations consider rhyme scheme, themes, and mood",
+        "Command displays suggestions with adaptations using formatSuggestion()",
+        "Running 'npm run dev suggest \"your lyrics here\"' shows suggestions with adaptations",
+        "Empty vault shows helpful message instead of crashing"
+      ],
+      "status": "todo",
+      "passes": false,
+      "depends_on": ["US-014", "US-006"]
+    },
+    {
+      "id": "US-016",
+      "title": "CLI Entry Point and Commander Setup",
+      "description": "Create main CLI entry point with all commands registered",
+      "acceptance_criteria": [
+        "src/index.ts has shebang line #!/usr/bin/env node",
+        "All commands registered with Commander.js",
+        "Each command has description and options configured",
+        "Running 'npm run dev' shows help text",
+        "Running 'npm run dev --version' shows version number",
+        "All commands accessible via 'npm run dev <command>'"
+      ],
+      "status": "todo",
+      "passes": false,
+      "depends_on": ["US-008", "US-009", "US-010", "US-011", "US-012", "US-013", "US-015"]
+    },
+    {
+      "id": "US-017",
+      "title": "Database CRUD Methods",
+      "description": "Implement all database CRUD operations in LyricDatabase class",
+      "acceptance_criteria": [
+        "LyricDatabase.insertLyric() saves lyric with analysis and returns ID",
+        "LyricDatabase.getLyric() retrieves lyric by ID",
+        "LyricDatabase.getRecentLyrics() returns N most recent lyrics",
+        "LyricDatabase.searchLyrics() filters by theme/rhyme/mood",
+        "LyricDatabase.getAllLyrics() returns all lyrics",
+        "LyricDatabase.deleteLyric() removes lyric and returns success boolean",
+        "LyricDatabase.getStats() returns total count and oldest date",
+        "All methods properly parse JSON fields (themes, rhyme_patterns, imagery_tags)"
+      ],
+      "status": "todo",
+      "passes": false,
+      "depends_on": ["US-002"]
+    },
+    {
+      "id": "US-018",
+      "title": "Build and Package Configuration",
+      "description": "Configure npm scripts and ensure clean builds",
+      "acceptance_criteria": [
+        "npm run build compiles TypeScript to dist/",
+        "npm run dev runs with tsx (no compilation needed)",
+        "npm start runs compiled version from dist/",
+        "bin field in package.json points to dist/index.js",
+        "dist/index.js is executable (has shebang)",
+        "No TypeScript errors when building",
+        "Running 'npm run build && npm start setup' works"
+      ],
+      "status": "todo",
+      "passes": false,
+      "depends_on": ["US-016"]
+    },
+    {
+      "id": "US-019",
+      "title": "End-to-End Integration Test",
+      "description": "Verify complete workflow works from setup through suggest",
+      "acceptance_criteria": [
+        "Can run setup command successfully",
+        "Can add 3+ different lyrics",
+        "Can list lyrics and see all added entries",
+        "Can search by theme and get results",
+        "Can run suggest and get relevant matches with adaptations",
+        "Can show specific lyric by ID",
+        "Can delete a lyric",
+        "All commands produce properly formatted output",
+        "No crashes or unhandled errors"
+      ],
+      "status": "todo",
+      "passes": false,
+      "depends_on": ["US-018"]
+    },
+    {
+      "id": "US-020",
+      "title": "Documentation and README",
+      "description": "Create comprehensive README with installation and usage instructions",
+      "acceptance_criteria": [
+        "README.md exists in project root",
+        "README includes project overview and motivation",
+        "README includes installation instructions (npm install, Ollama setup)",
+        "README includes quick start examples for each command",
+        "README includes tech stack section",
+        "README includes portfolio context (built for job application)",
+        "README includes screenshots or example output",
+        "README has proper markdown formatting"
+      ],
+      "status": "todo",
+      "passes": false,
+      "depends_on": ["US-019"]
+    }
+  ],
+  "notes": [
+    "Each user story should be completable in a single Claude Code iteration",
+    "Stories are ordered with dependencies - complete in sequence",
+    "All commands must be testable by running 'npm run dev <command>'",
+    "Database operations should be verified by checking ~/.lyric-vault/lyrics.db",
+    "Ollama must be running locally for AI-dependent tests",
+    "Use llama3.2 model as default (fast and capable)",
+    "Progress will be tracked via git commits - one commit per completed story"
+  ]
+}
