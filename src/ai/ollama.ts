@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { LyricAnalysis, Config } from '../types/index.js';
 import { loadConfig } from '../utils/config.js';
+import { ANALYSIS_PROMPT } from './prompts.js';
 
 /**
  * Client for interacting with Ollama API
@@ -122,25 +123,10 @@ export class OllamaClient {
 
   /**
    * Builds the analysis prompt for a lyric fragment
+   * Uses the centralized ANALYSIS_PROMPT from prompts.ts
    */
   private buildAnalysisPrompt(lyricText: string): string {
-    return `You are analyzing a lyric fragment. Return ONLY valid JSON (no markdown, no explanation):
-{
-  "themes": ["theme1", "theme2", "theme3", "theme4"],
-  "rhyme_patterns": ["ending1", "ending2"],
-  "mood": "brief mood description",
-  "imagery_tags": ["tag1", "tag2", "tag3"]
-}
-
-Lyric: "${lyricText}"
-
-Guidelines:
-- Themes: Core concepts/emotions (max 4). Examples: love, loss, freedom, nostalgia
-- Rhyme patterns: Last 3-4 characters of words that could rhyme
-- Mood: 2-3 word emotional tone. Examples: "melancholic, reflective"
-- Imagery tags: Sensory elements. Examples: visual, auditory, nature
-
-Return ONLY the JSON.`;
+    return ANALYSIS_PROMPT(lyricText);
   }
 
   /**

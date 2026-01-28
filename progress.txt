@@ -85,3 +85,25 @@ Status: 4/20 stories complete
 Next: US-005 (Prompts), US-006 (Formatting), US-007 (Rhyme)
 
 ---
+
+Iteration 5 - US-005: Prompt Templates for Analysis
+- Created src/ai/prompts.ts with prompt template functions
+- Implemented ANALYSIS_PROMPT(lyricText):
+  - Returns JSON-only instruction (no markdown)
+  - Includes guidelines for themes, rhyme patterns, mood, imagery
+  - Instructs model to return only JSON with no explanation
+- Implemented SUGGESTION_PROMPT(userLyric, userAnalysis, storedLyric, matchReasons):
+  - Includes current lyric context and its analysis
+  - Includes stored lyric and its metadata
+  - Includes match reasons for context
+  - Provides adaptation requirements (maintain essence, match rhyme, flow naturally)
+- Bonus: Added CONTINUATION_PROMPT for future use
+- Updated ollama.ts to import and use ANALYSIS_PROMPT from prompts.ts
+- Verified: npm run build succeeds with no errors
+- Verified: All prompts export correctly and generate expected output
+- Verified: OllamaClient still works with the new import
+
+Status: 5/20 stories complete
+Next: US-006 (Formatting), US-007 (Rhyme), US-008 (Setup Command - now unblocked)
+
+---
