@@ -14,8 +14,8 @@
         "Build script runs successfully (npm run build produces dist/)",
         "Type definitions in src/types/index.ts export Lyric, LyricAnalysis, LyricSuggestion, SearchQuery, Config interfaces"
       ],
-      "status": "todo",
-      "passes": false
+      "status": "done",
+      "passes": true
     },
     {
       "id": "US-002",
