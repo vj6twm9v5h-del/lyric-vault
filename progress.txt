@@ -107,3 +107,26 @@ Status: 5/20 stories complete
 Next: US-006 (Formatting), US-007 (Rhyme), US-008 (Setup Command - now unblocked)
 
 ---
+
+Iteration 6 - US-006: Terminal Formatting Utilities
+- Created src/utils/formatting.ts with formatting utilities
+- Implemented formatLyric(lyric):
+  - Displays lyric ID, date, text, themes, mood, rhymes, imagery
+  - Uses chalk.cyan for labels, chalk.gray for metadata, chalk.white for text
+- Implemented formatSuggestion(suggestion, index):
+  - Displays match score as percentage, lyric text, match reasons
+  - Shows suggested adaptation in green if present
+  - Uses chalk.yellow for match score, chalk.green for adaptations
+- Implemented helper functions:
+  - formatSuccess(message): green checkmark + message
+  - formatError(message): red X + message
+  - formatWarning(message): yellow warning symbol + message
+- Bonus: Added formatHeader() and formatDivider() utilities
+- Verified: npm run build succeeds with no errors
+- Verified: All formatting functions produce correct colorized output
+- Verified: Test script shows proper formatting for lyrics, suggestions, success/error/warning
+
+Status: 6/20 stories complete
+Next: US-007 (Rhyme), US-008 (Setup Command), US-009 (Add - now unblocked), US-010/011/012/013 (List/Search/Show/Delete - now unblocked)
+
+---
