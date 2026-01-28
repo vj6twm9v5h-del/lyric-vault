@@ -42,3 +42,23 @@ Status: 2/20 stories complete
 Next: US-003 (Config), US-005 (Prompts), US-006 (Formatting), US-007 (Rhyme), US-017 (Database CRUD - already done in US-002)
 
 ---
+
+Iteration 3 - US-003: Configuration Management
+- Created src/utils/config.ts with configuration utilities:
+  - loadConfig() loads config from ~/.lyric-vault/config.json
+  - saveConfig() saves config to ~/.lyric-vault/config.json (creates directory if needed)
+  - getDefaultConfig() returns default configuration
+  - getConfigDir() and getConfigPath() helper functions
+- Default configuration values:
+  - ollama_model: 'llama3.2'
+  - ollama_url: 'http://localhost:11434'
+  - database_path: ~/.lyric-vault/lyrics.db
+- Verified: npm run build succeeds
+- Verified: loadConfig() returns defaults when no config file exists
+- Verified: saveConfig() creates valid JSON file at ~/.lyric-vault/config.json
+- Verified: Config file roundtrips correctly (save then load)
+
+Status: 3/20 stories complete
+Next: US-004 (Ollama Client - unblocked), US-005 (Prompts), US-006 (Formatting), US-007 (Rhyme)
+
+---

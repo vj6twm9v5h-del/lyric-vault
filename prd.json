@@ -43,8 +43,8 @@
         "loadConfig() returns defaults if config file doesn't exist",
         "Config file is valid JSON"
       ],
-      "status": "todo",
-      "passes": false,
+      "status": "done",
+      "passes": true,
       "depends_on": ["US-001"]
     },
     {
