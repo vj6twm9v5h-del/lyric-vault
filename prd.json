@@ -58,8 +58,8 @@
         "Analysis returns themes, rhyme_patterns, mood, imagery_tags",
         "Graceful error handling when Ollama is unavailable"
       ],
-      "status": "todo",
-      "passes": false,
+      "status": "done",
+      "passes": true,
       "depends_on": ["US-001", "US-003"]
     },
     {

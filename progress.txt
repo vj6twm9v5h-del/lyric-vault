@@ -62,3 +62,26 @@ Status: 3/20 stories complete
 Next: US-004 (Ollama Client - unblocked), US-005 (Prompts), US-006 (Formatting), US-007 (Rhyme)
 
 ---
+
+Iteration 4 - US-004: Ollama Client Integration
+- Created src/ai/ollama.ts with OllamaClient class
+- Implemented testConnection() to check Ollama API availability (GET /api/tags)
+- Implemented checkModelAvailable() to verify configured model exists
+- Implemented analyzeLyric() method:
+  - Builds analysis prompt requesting JSON output for themes, rhyme_patterns, mood, imagery_tags
+  - Handles markdown code block stripping from response
+  - Parses JSON and validates/defaults all fields
+  - Returns both parsed analysis and raw response
+- Implemented generate() method for custom prompts (for future suggest command)
+- Graceful error handling:
+  - ECONNREFUSED: "Ollama is not running. Please start Ollama with: ollama serve"
+  - ETIMEDOUT/ECONNABORTED: "Ollama request timed out..."
+  - 404: "Model 'X' not found. Please pull it with: ollama pull X"
+- Verified: npm run build succeeds with no errors
+- Verified: OllamaClient instantiates correctly with default config
+- Verified: testConnection() returns false gracefully when Ollama not running
+
+Status: 4/20 stories complete
+Next: US-005 (Prompts), US-006 (Formatting), US-007 (Rhyme)
+
+---
