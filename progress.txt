@@ -20,3 +20,25 @@ Status: 1/20 stories complete
 Next: US-002 (Database), US-003 (Config), US-005 (Prompts), US-006 (Formatting), US-007 (Rhyme) - all unblocked
 
 ---
+
+Iteration 2 - US-002: Database Schema and Connection
+- Created src/db/schema.sql with lyrics table and idx_created_at index
+- Created src/db/database.ts with LyricDatabase class:
+  - Constructor creates ~/.lyric-vault directory if needed
+  - initialize() creates table and index
+  - close() properly closes connection
+  - insertLyric() saves lyric with JSON-stringified arrays
+  - getLyric(), getRecentLyrics(), getAllLyrics() retrieve lyrics
+  - searchLyrics() filters by theme/rhyme/mood using LIKE queries
+  - deleteLyric() removes by ID and returns success boolean
+  - getStats() returns total count and oldest date
+  - rowToLyric() helper parses JSON fields back to arrays
+- Verified: npm run build succeeds
+- Verified: Database file created at ~/.lyric-vault/lyrics.db
+- Verified: Schema has correct table structure and index
+- Verified: All CRUD operations work via test script
+
+Status: 2/20 stories complete
+Next: US-003 (Config), US-005 (Prompts), US-006 (Formatting), US-007 (Rhyme), US-017 (Database CRUD - already done in US-002)
+
+---

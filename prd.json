@@ -28,8 +28,8 @@
         "LyricDatabase.initialize() creates table and indexes",
         "LyricDatabase.close() properly closes connection"
       ],
-      "status": "todo",
-      "passes": false,
+      "status": "done",
+      "passes": true,
       "depends_on": ["US-001"]
     },
     {
