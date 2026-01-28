@@ -103,8 +103,8 @@
         "rhymeMatch() compares two patterns and returns boolean",
         "src/utils/rhyme.ts exports calculateRhymeScore() function that compares pattern arrays"
       ],
-      "status": "todo",
-      "passes": false,
+      "status": "done",
+      "passes": true,
       "depends_on": ["US-001"]
     },
     {

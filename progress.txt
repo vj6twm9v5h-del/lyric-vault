@@ -130,3 +130,27 @@ Status: 6/20 stories complete
 Next: US-007 (Rhyme), US-008 (Setup Command), US-009 (Add - now unblocked), US-010/011/012/013 (List/Search/Show/Delete - now unblocked)
 
 ---
+
+Iteration 7 - US-007: Rhyme Pattern Utilities
+- Created src/utils/rhyme.ts with rhyme extraction and matching algorithms
+- Implemented extractRhymePatterns(text):
+  - Extracts last 3-4 characters of significant words as ending sounds
+  - Filters out short words (< 3 chars) and removes punctuation
+  - Returns unique patterns to avoid duplicates
+- Implemented rhymeMatch(pattern1, pattern2):
+  - Checks exact match, shared endings (2-3 chars), and vowel pattern matching
+  - Returns boolean indicating if patterns rhyme
+- Implemented calculateRhymeScore(patterns1, patterns2):
+  - Calculates match score between two arrays of patterns
+  - Returns normalized score between 0 and 1
+  - Uses greedy matching to find best pattern pairings
+- Bonus: Added findRhymingWords() helper for future use
+- Verified: npm run build succeeds with no errors
+- Verified: extractRhymePatterns correctly extracts endings from sample text
+- Verified: rhymeMatch returns true for rhyming patterns (rain/plain, love/dove)
+- Verified: calculateRhymeScore returns 1 for identical, 0 for non-matching, 0.5 for partial
+
+Status: 7/20 stories complete
+Next: US-008 (Setup Command), US-009 (Add), US-010/011/012/013 (List/Search/Show/Delete), US-014 (Suggest Matching - now unblocked)
+
+---
