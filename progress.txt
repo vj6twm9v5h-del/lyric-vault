@@ -429,3 +429,32 @@ Status: 19/20 stories complete
 Next: US-020 (Documentation and README - depends on US-019)
 
 ---
+
+Iteration 20 - US-020: Documentation and README
+- Created comprehensive README.md in project root
+- Included project overview explaining the tool's purpose for musicians/lyricists
+- Added installation instructions:
+  - Clone repository
+  - npm install
+  - npm run build
+  - Ollama setup (brew install, ollama serve, ollama pull llama3.2)
+  - npm start setup
+- Included quick start examples for all 7 commands:
+  - add: with example output showing AI analysis
+  - list: with --recent option
+  - search: with theme, mood, rhyme filters
+  - suggest: with detailed example output showing matches and adaptations
+  - show: viewing specific lyric
+  - delete: removing a lyric
+- Added Commands Reference table with all commands
+- Included Tech Stack section: TypeScript, Node.js, SQLite, Ollama, Commander.js, Chalk
+- Added Portfolio Context section explaining the project's purpose
+- Included "How It Works" section explaining analysis, search, and suggest workflows
+- Added Data Storage and Configuration sections
+- Proper markdown formatting throughout (headers, code blocks, tables, lists)
+- Verified: npm run build still succeeds
+- Verified: README.md renders correctly with proper markdown
+
+Status: 20/20 stories complete - ALL DONE!
+
+---

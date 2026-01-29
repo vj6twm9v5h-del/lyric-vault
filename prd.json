@@ -318,8 +318,8 @@
         "README includes screenshots or example output",
         "README has proper markdown formatting"
       ],
-      "status": "todo",
-      "passes": false,
+      "status": "done",
+      "passes": true,
       "depends_on": ["US-019"]
     }
   ],
