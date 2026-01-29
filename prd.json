@@ -119,8 +119,8 @@
         "Command provides clear error messages if Ollama is not available",
         "Running 'npm run dev setup' completes without errors"
       ],
-      "status": "todo",
-      "passes": false,
+      "status": "done",
+      "passes": true,
       "depends_on": ["US-002", "US-003", "US-004"]
     },
     {
