@@ -230,8 +230,8 @@
         "Running 'npm run dev suggest \"your lyrics here\"' shows suggestions with adaptations",
         "Empty vault shows helpful message instead of crashing"
       ],
-      "status": "todo",
-      "passes": false,
+      "status": "done",
+      "passes": true,
       "depends_on": ["US-014", "US-006"]
     },
     {

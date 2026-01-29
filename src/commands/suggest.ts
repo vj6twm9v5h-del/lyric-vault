@@ -1,6 +1,7 @@
 import chalk from 'chalk';
 import { LyricDatabase } from '../db/database.js';
 import { OllamaClient } from '../ai/ollama.js';
+import { SUGGESTION_PROMPT } from '../ai/prompts.js';
 import { calculateRhymeScore } from '../utils/rhyme.js';
 import { formatSuccess, formatError, formatWarning, formatSuggestion, formatHeader, formatDivider } from '../utils/formatting.js';
 import { Lyric, LyricAnalysis, LyricSuggestion } from '../types/index.js';
@@ -88,6 +89,56 @@ function calculateMatchScore(
 }
 
 /**
+ * Generate AI-powered adaptations for suggestions
+ * @param userLyric - The input lyric from the user
+ * @param userAnalysis - Analysis of the user's lyric
+ * @param suggestions - Top suggestions to generate adaptations for
+ * @param ollama - OllamaClient instance
+ * @returns Updated suggestions with adaptations
+ */
+async function generateAdaptations(
+  userLyric: string,
+  userAnalysis: LyricAnalysis,
+  suggestions: LyricSuggestion[],
+  ollama: OllamaClient
+): Promise<LyricSuggestion[]> {
+  const adaptedSuggestions: LyricSuggestion[] = [];
+
+  for (const suggestion of suggestions) {
+    try {
+      const prompt = SUGGESTION_PROMPT(
+        userLyric,
+        userAnalysis,
+        suggestion.lyric,
+        suggestion.match_reasons
+      );
+
+      const adaptation = await ollama.generate(prompt);
+
+      // Clean up the adaptation response
+      let cleanAdaptation = adaptation.trim();
+      // Remove any quotes if the model wrapped the response
+      if (cleanAdaptation.startsWith('"') && cleanAdaptation.endsWith('"')) {
+        cleanAdaptation = cleanAdaptation.slice(1, -1);
+      }
+      if (cleanAdaptation.startsWith("'") && cleanAdaptation.endsWith("'")) {
+        cleanAdaptation = cleanAdaptation.slice(1, -1);
+      }
+
+      adaptedSuggestions.push({
+        ...suggestion,
+        suggested_adaptation: cleanAdaptation
+      });
+    } catch {
+      // If adaptation fails, still include the suggestion without adaptation
+      adaptedSuggestions.push(suggestion);
+    }
+  }
+
+  return adaptedSuggestions;
+}
+
+/**
  * Suggest command - Find matching lyrics from the vault
  * @param inputText - The input lyric to find matches for
  */
@@ -139,21 +190,39 @@ export async function suggestCommand(inputText: string): Promise<void> {
       return;
     }
 
-    // Show top suggestions (limit to 5)
+    // Show top suggestions (limit to 5, but generate adaptations for top 3)
     const topSuggestions = suggestions.slice(0, 5);
+    const suggestionsForAdaptation = topSuggestions.slice(0, 3);
+
+    console.log(chalk.cyan('Generating AI adaptations for top matches...'));
+    console.log('');
+
+    // Generate AI adaptations for top 3 suggestions
+    const adaptedSuggestions = await generateAdaptations(
+      inputText,
+      inputAnalysis,
+      suggestionsForAdaptation,
+      ollama
+    );
+
+    // Merge adapted suggestions back with any remaining ones
+    const finalSuggestions = [
+      ...adaptedSuggestions,
+      ...topSuggestions.slice(3)
+    ];
 
     console.log(formatHeader(`Found ${suggestions.length} matching lyric${suggestions.length === 1 ? '' : 's'}`));
     console.log('');
 
-    for (let i = 0; i < topSuggestions.length; i++) {
-      console.log(formatSuggestion(topSuggestions[i], i));
-      if (i < topSuggestions.length - 1) {
+    for (let i = 0; i < finalSuggestions.length; i++) {
+      console.log(formatSuggestion(finalSuggestions[i], i));
+      if (i < finalSuggestions.length - 1) {
         console.log(formatDivider());
       }
     }
 
     console.log('');
-    console.log(formatSuccess(`Showing top ${topSuggestions.length} of ${suggestions.length} matches`));
+    console.log(formatSuccess(`Showing top ${finalSuggestions.length} of ${suggestions.length} matches`));
 
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown error occurred';

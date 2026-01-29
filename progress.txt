@@ -315,3 +315,30 @@ Status: 14/20 stories complete
 Next: US-015 (AI Adaptations), US-017 (Database CRUD - already done in US-002)
 
 ---
+
+Iteration 15 - US-015: Suggest Command - AI Adaptations
+- Added import for SUGGESTION_PROMPT from src/ai/prompts.ts
+- Implemented generateAdaptations() function:
+  - Takes user lyric, analysis, suggestions array, and ollama client
+  - Generates AI adaptation for each suggestion using SUGGESTION_PROMPT
+  - Cleans up response by removing surrounding quotes if present
+  - Gracefully handles failures (includes suggestion without adaptation)
+- Updated suggestCommand() to:
+  - Generate AI adaptations for top 3 matches (not just top 5)
+  - Display "Generating AI adaptations..." progress message
+  - Merge adapted suggestions back with any remaining ones (4th, 5th)
+- Adaptations use SUGGESTION_PROMPT which considers:
+  - Current lyric themes, mood, and rhyme patterns
+  - Stored lyric metadata (themes, mood, rhymes)
+  - Match reasons for context
+- Empty vault check already existed (shows helpful message)
+- formatSuggestion() already displays suggested_adaptation in green
+- Verified: npm run build succeeds with no errors
+- Verified: npm run dev suggest "I still remember mornings when the world felt light" shows adaptations
+- Verified: npm run dev suggest "dancing in the rain until sunrise" shows adaptations
+- Verified: Empty vault returns helpful message (tested with fresh database)
+
+Status: 15/20 stories complete
+Next: US-016 (CLI Entry Point - depends on US-015), US-017 (Database CRUD - already done in US-002)
+
+---
