@@ -300,8 +300,8 @@
         "All commands produce properly formatted output",
         "No crashes or unhandled errors"
       ],
-      "status": "todo",
-      "passes": false,
+      "status": "done",
+      "passes": true,
       "depends_on": ["US-018"]
     },
     {
