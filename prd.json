@@ -281,8 +281,8 @@
         "No TypeScript errors when building",
         "Running 'npm run build && npm start setup' works"
       ],
-      "status": "todo",
-      "passes": false,
+      "status": "done",
+      "passes": true,
       "depends_on": ["US-016"]
     },
     {
