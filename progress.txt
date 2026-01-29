@@ -216,3 +216,30 @@ Status: 10/20 stories complete
 Next: US-011 (Search), US-012 (Show), US-013 (Delete), US-014 (Suggest Matching), US-017 (Database CRUD - already done in US-002)
 
 ---
+
+Iteration 11 - US-011: Search Command Implementation
+- Created src/commands/search.ts with searchCommand(queryString) function
+- Implemented parseSearchQuery() to parse query format: theme:X rhyme:Y mood:Z
+  - Supports both quoted and unquoted values
+  - Extracts theme, rhyme, and mood filters
+- Command uses LyricDatabase.searchLyrics() with parsed filters
+- Command displays:
+  - Header with result count
+  - Active filters in formatted display
+  - Full lyric metadata using formatLyric()
+  - Helpful message when no results found
+  - Usage guidance when invalid query provided
+- Properly closes database connection in finally block
+- Registered search command in src/index.ts with Commander.js
+- Verified: npm run build succeeds with no errors
+- Verified: npm run dev search "theme:love" returns matching lyrics
+- Verified: npm run dev search "mood:melancholic" finds both lyrics
+- Verified: npm run dev search "rhyme:ight" finds correct lyric
+- Verified: npm run dev search "theme:nostalgia mood:melancholic" filters correctly
+- Verified: Search with no results shows helpful message
+- Verified: Invalid query shows usage guidance
+
+Status: 11/20 stories complete
+Next: US-012 (Show), US-013 (Delete), US-014 (Suggest Matching), US-017 (Database CRUD - already done in US-002)
+
+---

@@ -167,8 +167,8 @@
         "Running 'npm run dev search \"theme:love\"' returns matching lyrics",
         "Running 'npm run dev search \"rhyme:ight mood:sad\"' filters correctly"
       ],
-      "status": "todo",
-      "passes": false,
+      "status": "done",
+      "passes": true,
       "depends_on": ["US-002", "US-006"]
     },
     {

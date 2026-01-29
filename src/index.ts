@@ -4,6 +4,7 @@ import { Command } from 'commander';
 import { setupCommand } from './commands/setup.js';
 import { addCommand } from './commands/add.js';
 import { listCommand } from './commands/list.js';
+import { searchCommand } from './commands/search.js';
 
 const program = new Command();
 
@@ -35,6 +36,14 @@ program
   .option('-r, --recent <number>', 'Number of recent lyrics to show', '10')
   .action((options) => {
     listCommand({ recent: parseInt(options.recent, 10) });
+  });
+
+// Search command
+program
+  .command('search <query>')
+  .description('Search lyrics by theme, rhyme, or mood (e.g., "theme:love mood:sad")')
+  .action((query: string) => {
+    searchCommand(query);
   });
 
 program.parse();
