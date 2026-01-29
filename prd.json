@@ -151,8 +151,8 @@
         "Running 'npm run dev list' shows recent lyrics",
         "Running 'npm run dev list --recent 5' shows only 5 lyrics"
       ],
-      "status": "todo",
-      "passes": false,
+      "status": "done",
+      "passes": true,
       "depends_on": ["US-002", "US-006"]
     },
     {

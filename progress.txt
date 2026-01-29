@@ -198,3 +198,21 @@ Status: 9/20 stories complete
 Next: US-010 (List), US-011 (Search), US-012 (Show), US-013 (Delete), US-014 (Suggest Matching)
 
 ---
+
+Iteration 10 - US-010: List Command Implementation
+- Created src/commands/list.ts with listCommand(options) function
+- Command accepts --recent option with default of 10
+- Command retrieves lyrics from database using LyricDatabase.getRecentLyrics()
+- Command displays formatted output using formatLyric() with dividers between entries
+- Shows warning message when vault is empty
+- Properly closes database connection in finally block
+- Registered list command in src/index.ts with Commander.js
+- Verified: npm run build succeeds with no errors
+- Verified: npm run dev list shows recent lyrics with formatted output
+- Verified: npm run dev list --recent 1 shows only 1 lyric
+- Verified: Help text correctly shows list command options
+
+Status: 10/20 stories complete
+Next: US-011 (Search), US-012 (Show), US-013 (Delete), US-014 (Suggest Matching), US-017 (Database CRUD - already done in US-002)
+
+---

@@ -3,6 +3,7 @@
 import { Command } from 'commander';
 import { setupCommand } from './commands/setup.js';
 import { addCommand } from './commands/add.js';
+import { listCommand } from './commands/list.js';
 
 const program = new Command();
 
@@ -25,6 +26,15 @@ program
   .description('Add a new lyric idea with AI analysis')
   .action(async (text: string) => {
     await addCommand(text);
+  });
+
+// List command
+program
+  .command('list')
+  .description('List recent lyrics from your vault')
+  .option('-r, --recent <number>', 'Number of recent lyrics to show', '10')
+  .action((options) => {
+    listCommand({ recent: parseInt(options.recent, 10) });
   });
 
 program.parse();
