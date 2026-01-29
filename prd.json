@@ -246,8 +246,8 @@
         "Running 'npm run dev --version' shows version number",
         "All commands accessible via 'npm run dev <command>'"
       ],
-      "status": "todo",
-      "passes": false,
+      "status": "done",
+      "passes": true,
       "depends_on": ["US-008", "US-009", "US-010", "US-011", "US-012", "US-013", "US-015"]
     },
     {

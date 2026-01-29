@@ -361,3 +361,24 @@ Status: 16/20 stories complete
 Next: US-016 (CLI Entry Point - all dependencies met)
 
 ---
+
+Iteration 17 - US-016: CLI Entry Point and Commander Setup
+- Verified src/index.ts has shebang line #!/usr/bin/env node
+- Verified all 7 commands registered with Commander.js:
+  - setup: Initialize Lyric Vault (test Ollama, create database, save config)
+  - add <text>: Add a new lyric idea with AI analysis
+  - list [options]: List recent lyrics from your vault (--recent option)
+  - search <query>: Search lyrics by theme, rhyme, or mood
+  - show <id>: Show full details of a specific lyric by ID
+  - delete <id>: Delete a lyric from your vault by ID
+  - suggest <text>: Find matching lyrics from your vault with AI-powered suggestions
+- Each command has proper description and options configured
+- Verified: npm run build succeeds with no TypeScript errors
+- Verified: npm run dev shows help text with all commands listed
+- Verified: npm run dev --version outputs 1.0.0
+- Verified: All commands accessible and respond to --help flag
+
+Status: 17/20 stories complete
+Next: US-018 (Build and Package Configuration - depends on US-016)
+
+---
