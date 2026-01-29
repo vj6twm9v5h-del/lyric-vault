@@ -215,8 +215,8 @@
         "Command ranks suggestions by score",
         "Match reasons are tracked and displayed"
       ],
-      "status": "todo",
-      "passes": false,
+      "status": "done",
+      "passes": true,
       "depends_on": ["US-002", "US-004", "US-005", "US-007"]
     },
     {

@@ -289,3 +289,29 @@ Status: 13/20 stories complete
 Next: US-014 (Suggest Matching), US-017 (Database CRUD - already done in US-002)
 
 ---
+
+Iteration 14 - US-014: Suggest Command - Matching Logic
+- Created src/commands/suggest.ts with suggestCommand(inputText) function
+- Implemented calculateMatchScore() function for computing match scores:
+  - Theme matching (35% weight): Finds shared themes between input and stored lyrics
+  - Rhyme matching (30% weight): Uses calculateRhymeScore() from rhyme.ts
+  - Mood matching (25% weight): Compares mood descriptors for similarity
+  - Imagery matching (10% weight): Finds overlapping imagery tags
+- Command workflow:
+  - Checks if vault is empty (shows helpful message if so)
+  - Analyzes input lyric using OllamaClient.analyzeLyric()
+  - Retrieves all lyrics from database
+  - Calculates match scores for each stored lyric
+  - Filters to suggestions with score > 0.1 and at least one match reason
+  - Sorts by score (highest first) and displays top 5
+- Match reasons tracked and displayed for each suggestion
+- Registered suggest command in src/index.ts for testing
+- Verified: npm run build succeeds with no errors
+- Verified: npm run dev suggest "I still remember mornings..." returns 2 matches
+- Verified: Match scores calculated correctly (40% and 38% for test lyrics)
+- Verified: Match reasons displayed (shared themes, compatible rhymes, similar mood)
+
+Status: 14/20 stories complete
+Next: US-015 (AI Adaptations), US-017 (Database CRUD - already done in US-002)
+
+---

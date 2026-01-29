@@ -7,6 +7,7 @@ import { listCommand } from './commands/list.js';
 import { searchCommand } from './commands/search.js';
 import { showCommand } from './commands/show.js';
 import { deleteCommand } from './commands/delete.js';
+import { suggestCommand } from './commands/suggest.js';
 
 const program = new Command();
 
@@ -62,6 +63,14 @@ program
   .description('Delete a lyric from your vault by ID')
   .action((id: string) => {
     deleteCommand(id);
+  });
+
+// Suggest command
+program
+  .command('suggest <text>')
+  .description('Find matching lyrics from your vault with AI-powered suggestions')
+  .action(async (text: string) => {
+    await suggestCommand(text);
   });
 
 program.parse();
