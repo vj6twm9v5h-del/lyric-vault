@@ -342,3 +342,22 @@ Status: 15/20 stories complete
 Next: US-016 (CLI Entry Point - depends on US-015), US-017 (Database CRUD - already done in US-002)
 
 ---
+
+Iteration 16 - US-017: Database CRUD Methods
+- Verified all CRUD methods already implemented in US-002:
+  - insertLyric() saves lyric with analysis and returns ID (line 76-92)
+  - getLyric() retrieves lyric by ID (line 97-101)
+  - getRecentLyrics() returns N most recent lyrics (line 106-112)
+  - searchLyrics() filters by theme/rhyme/mood (line 126-150)
+  - getAllLyrics() returns all lyrics (line 117-121)
+  - deleteLyric() removes lyric and returns success boolean (line 155-159)
+  - getStats() returns total count and oldest date (line 164-177)
+  - rowToLyric() properly parses JSON fields (line 60-71)
+- All acceptance criteria verified as met
+- npm run build succeeds with no errors
+- Marked US-017 as done (was completed as part of US-002)
+
+Status: 16/20 stories complete
+Next: US-016 (CLI Entry Point - all dependencies met)
+
+---

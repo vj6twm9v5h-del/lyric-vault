@@ -264,8 +264,8 @@
         "LyricDatabase.getStats() returns total count and oldest date",
         "All methods properly parse JSON fields (themes, rhyme_patterns, imagery_tags)"
       ],
-      "status": "todo",
-      "passes": false,
+      "status": "done",
+      "passes": true,
       "depends_on": ["US-002"]
     },
     {
