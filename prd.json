@@ -135,8 +135,8 @@
         "Command displays confirmation with themes, rhyme patterns, mood",
         "Running 'npm run dev add \"test lyric\"' saves to database and shows output"
       ],
-      "status": "todo",
-      "passes": false,
+      "status": "done",
+      "passes": true,
       "depends_on": ["US-002", "US-004", "US-005", "US-006"]
     },
     {

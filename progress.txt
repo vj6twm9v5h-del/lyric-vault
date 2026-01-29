@@ -176,3 +176,25 @@ Status: 8/20 stories complete
 Next: US-009 (Add), US-010/011/012/013 (List/Search/Show/Delete), US-014 (Suggest Matching)
 
 ---
+
+Iteration 9 - US-009: Add Command Implementation
+- Created src/commands/add.ts with addCommand(text) function
+- Command accepts lyric text as argument
+- Command calls OllamaClient.analyzeLyric() to analyze with AI
+- Command saves lyric to database using LyricDatabase.insertLyric()
+- Command displays:
+  - "Analyzing lyric with Ollama..." progress message
+  - Success confirmation with lyric ID
+  - Full formatted lyric output (ID, date, text, themes, mood, rhymes, imagery)
+- Error handling: graceful failure with formatted error message
+- Properly closes database connection in finally block
+- Registered add command in src/index.ts with Commander.js
+- Verified: npm run build succeeds with no errors
+- Verified: npm run dev add "coffee stains on your old sweater" works
+- Verified: npm run dev add "we were young and reckless, burning bright" works
+- Verified: Lyrics saved correctly in database (checked with sqlite3)
+
+Status: 9/20 stories complete
+Next: US-010 (List), US-011 (Search), US-012 (Show), US-013 (Delete), US-014 (Suggest Matching)
+
+---
