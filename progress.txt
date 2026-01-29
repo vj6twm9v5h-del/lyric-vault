@@ -243,3 +243,26 @@ Status: 11/20 stories complete
 Next: US-012 (Show), US-013 (Delete), US-014 (Suggest Matching), US-017 (Database CRUD - already done in US-002)
 
 ---
+
+Iteration 12 - US-012: Show Command Implementation
+- Created src/commands/show.ts with showCommand(id) function
+- Command accepts lyric ID as string argument and parses to integer
+- Command retrieves lyric from database using LyricDatabase.getLyric()
+- Command displays:
+  - Header with lyric ID
+  - Full formatted lyric output using formatLyric()
+- Error handling:
+  - Invalid ID (non-number or <= 0): shows formatted error message
+  - Non-existent ID: shows "Lyric #X not found" with guidance to use list command
+- Properly closes database connection in finally block
+- Registered show command in src/index.ts with Commander.js
+- Verified: npm run build succeeds with no errors
+- Verified: npm run dev show 2 displays lyric #2 details correctly
+- Verified: npm run dev show 3 displays lyric #3 details correctly
+- Verified: npm run dev show 999 shows "not found" error
+- Verified: npm run dev show abc shows "invalid ID" error
+
+Status: 12/20 stories complete
+Next: US-013 (Delete), US-014 (Suggest Matching), US-017 (Database CRUD - already done in US-002)
+
+---

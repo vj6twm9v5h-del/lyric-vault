@@ -183,8 +183,8 @@
         "Running 'npm run dev show 1' displays lyric #1 details",
         "Command shows error if ID doesn't exist"
       ],
-      "status": "todo",
-      "passes": false,
+      "status": "done",
+      "passes": true,
       "depends_on": ["US-002", "US-006"]
     },
     {

@@ -5,6 +5,7 @@ import { setupCommand } from './commands/setup.js';
 import { addCommand } from './commands/add.js';
 import { listCommand } from './commands/list.js';
 import { searchCommand } from './commands/search.js';
+import { showCommand } from './commands/show.js';
 
 const program = new Command();
 
@@ -44,6 +45,14 @@ program
   .description('Search lyrics by theme, rhyme, or mood (e.g., "theme:love mood:sad")')
   .action((query: string) => {
     searchCommand(query);
+  });
+
+// Show command
+program
+  .command('show <id>')
+  .description('Show full details of a specific lyric by ID')
+  .action((id: string) => {
+    showCommand(id);
   });
 
 program.parse();
