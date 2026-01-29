@@ -6,6 +6,7 @@ import { addCommand } from './commands/add.js';
 import { listCommand } from './commands/list.js';
 import { searchCommand } from './commands/search.js';
 import { showCommand } from './commands/show.js';
+import { deleteCommand } from './commands/delete.js';
 
 const program = new Command();
 
@@ -53,6 +54,14 @@ program
   .description('Show full details of a specific lyric by ID')
   .action((id: string) => {
     showCommand(id);
+  });
+
+// Delete command
+program
+  .command('delete <id>')
+  .description('Delete a lyric from your vault by ID')
+  .action((id: string) => {
+    deleteCommand(id);
   });
 
 program.parse();

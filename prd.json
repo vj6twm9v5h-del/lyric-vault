@@ -199,8 +199,8 @@
         "Running 'npm run dev delete 1' removes lyric #1",
         "Attempting to delete non-existent ID shows appropriate error"
       ],
-      "status": "todo",
-      "passes": false,
+      "status": "done",
+      "passes": true,
       "depends_on": ["US-002", "US-006"]
     },
     {

@@ -266,3 +266,26 @@ Status: 12/20 stories complete
 Next: US-013 (Delete), US-014 (Suggest Matching), US-017 (Database CRUD - already done in US-002)
 
 ---
+
+Iteration 13 - US-013: Delete Command Implementation
+- Created src/commands/delete.ts with deleteCommand(id) function
+- Command accepts lyric ID as string argument and parses to integer
+- Command checks if lyric exists before attempting delete using getLyric()
+- Command uses LyricDatabase.deleteLyric() to remove from database
+- Command displays:
+  - Success message with lyric ID and truncated preview of deleted text
+  - Error for invalid ID (non-number, negative, or zero)
+  - Error for non-existent ID with guidance to use list command
+- Properly closes database connection in finally block
+- Registered delete command in src/index.ts with Commander.js
+- Verified: npm run build succeeds with no errors
+- Verified: npm run dev delete 3 removes lyric #3 successfully
+- Verified: npm run dev delete 999 shows "not found" error
+- Verified: npm run dev delete abc shows "invalid ID" error
+- Verified: npm run dev delete -5 shows "invalid ID" error
+- Verified: Deleted lyric no longer appears in list
+
+Status: 13/20 stories complete
+Next: US-014 (Suggest Matching), US-017 (Database CRUD - already done in US-002)
+
+---
