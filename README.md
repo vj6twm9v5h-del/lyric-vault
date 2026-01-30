@@ -34,7 +34,7 @@ All data stays on your machine. No cloud services, no subscriptions - just your 
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/lyric-vault.git
+   git clone https://github.com/vj6twm9v5h-del/lyric-vault.git
    cd lyric-vault
    ```
 
