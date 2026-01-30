@@ -2,17 +2,26 @@
   "name": "lyric-vault",
   "version": "1.0.0",
   "description": "Local-first CLI tool for capturing and intelligently retrieving lyrical ideas using Ollama",
-  "main": "dist/index.js",
+  "main": "dist-electron/main.cjs",
   "type": "module",
   "scripts": {
     "build": "tsc",
     "dev": "tsx src/index.ts",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "gui:dev": "vite --config gui/vite.config.ts",
+    "gui:build": "vite build --config gui/vite.config.ts",
+    "electron:dev": "concurrently -k \"npm run gui:dev\" \"npm run electron:wait\"",
+    "electron:wait": "wait-on http://localhost:5173 && npm run electron:start",
+    "electron:start": "electron .",
+    "electron:run": "NODE_ENV=production npm run gui:build && NODE_ENV=production electron .",
+    "electron:build": "npm run gui:build && npm run electron:compile && electron-builder",
+    "electron:compile": "tsc -p tsconfig.electron.json",
+    "postinstall": "electron-builder install-app-deps"
   },
   "bin": {
     "lyric": "./dist/index.js"
   },
-  "keywords": ["lyrics", "music", "ai", "ollama", "cli"],
+  "keywords": ["lyrics", "music", "ai", "ollama", "cli", "electron"],
   "author": "",
   "license": "MIT",
   "dependencies": {
@@ -25,6 +34,39 @@
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.13",
     "@types/node": "^25.1.0",
-    "tsx": "^4.21.0"
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.0",
+    "concurrently": "^9.1.0",
+    "electron": "^33.2.1",
+    "electron-builder": "^25.1.8",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^7.1.1",
+    "tsx": "^4.21.0",
+    "vite": "^6.0.7",
+    "wait-on": "^8.0.2"
+  },
+  "build": {
+    "appId": "com.lyricvault.app",
+    "productName": "Lyric Vault",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist-electron/**/*",
+      "dist-gui/**/*"
+    ],
+    "mac": {
+      "category": "public.app-category.music",
+      "target": "dmg"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "category": "Audio",
+      "target": "AppImage"
+    }
   }
 }

@@ -1,0 +1,246 @@
+.page {
+  animation: slideUp 0.3s ease;
+}
+
+.header {
+  margin-bottom: var(--space-xl);
+}
+
+.header h1 {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: var(--space-xs);
+}
+
+.subtitle {
+  color: var(--color-text-secondary);
+  font-size: 16px;
+}
+
+.section {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-lg);
+  box-shadow: var(--shadow);
+}
+
+.section h2 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: var(--space-lg);
+  color: var(--color-text);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.formGroup label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.formGroup input {
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  background: var(--color-bg);
+  color: var(--color-text);
+  transition: border-color var(--transition-fast);
+}
+
+.formGroup input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+.hint {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.connectionRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-md);
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-md);
+  margin-top: var(--space-sm);
+}
+
+.statusIndicator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.statusDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-text-muted);
+}
+
+.statusConnected {
+  background: var(--color-accent);
+}
+
+.statusDisconnected {
+  background: var(--color-danger);
+}
+
+.testButton {
+  padding: var(--space-xs) var(--space-md);
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.testButton:hover:not(:disabled) {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.testButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.formActions {
+  margin-top: var(--space-md);
+}
+
+.saveButton {
+  padding: var(--space-sm) var(--space-lg);
+  background: var(--color-accent);
+  color: white;
+  border: none;
+  border-radius: var(--radius-full);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.saveButton:hover:not(:disabled) {
+  background: var(--color-accent-hover);
+}
+
+.saveButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.themeToggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.themeToggle > span {
+  font-size: 14px;
+  color: var(--color-text);
+}
+
+.themeButtons {
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.themeButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-md);
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.themeButton:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.themeButtonActive {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: white;
+}
+
+.themeButtonActive:hover {
+  background: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+  color: white;
+}
+
+.dataInfo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.dataRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.dataRow:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.dataRow label {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.dataRow span {
+  font-size: 14px;
+  color: var(--color-text);
+}
+
+.dataPath {
+  font-family: var(--font-mono);
+  font-size: 12px !important;
+  color: var(--color-text-muted) !important;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

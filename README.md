@@ -1,6 +1,8 @@
 # Lyric Vault
 
-A local-first CLI tool for musicians to capture and intelligently retrieve lyrical ideas using AI.
+A local-first tool for musicians to capture and intelligently retrieve lyrical ideas using AI.
+
+**Now with a desktop GUI!**
 
 ## Overview
 
@@ -18,6 +20,8 @@ All data stays on your machine. No cloud services, no subscriptions - just your 
 - **Node.js** - Runtime environment
 - **SQLite** (better-sqlite3) - Local database storage
 - **Ollama** - Local AI for lyric analysis and suggestions
+- **Electron** - Desktop application framework
+- **React** - GUI framework
 - **Commander.js** - CLI framework
 - **Chalk** - Terminal styling
 
@@ -39,12 +43,7 @@ All data stays on your machine. No cloud services, no subscriptions - just your 
    npm install
    ```
 
-3. **Build the project:**
-   ```bash
-   npm run build
-   ```
-
-4. **Set up Ollama** (if not already installed):
+3. **Set up Ollama** (if not already installed):
    ```bash
    # macOS
    brew install ollama
@@ -58,14 +57,50 @@ All data stays on your machine. No cloud services, no subscriptions - just your 
    ollama pull llama3.2
    ```
 
-5. **Initialize Lyric Vault:**
-   ```bash
-   npm start setup
-   ```
+## Desktop App (GUI)
 
-## Quick Start
+### Running the GUI
 
-### Add your first lyric
+```bash
+npm run electron:dev
+```
+
+This launches the Lyric Vault desktop app with a clean, modern interface.
+
+### GUI Features
+
+| Page | Description |
+|------|-------------|
+| **Dashboard** | Overview of your vault with stats and recent lyrics |
+| **Add Lyric** | Input lyrics with real-time AI analysis preview |
+| **Browse** | Grid view of all lyrics with filtering and search |
+| **Search** | Search by theme, mood, or rhyme pattern |
+| **Suggest** | Get AI-powered suggestions for your current lyric |
+| **Settings** | Configure Ollama, toggle dark mode, view stats |
+
+### Building for Production
+
+```bash
+npm run electron:build
+```
+
+This creates distributable installers in the `release/` directory.
+
+---
+
+## Command Line Interface (CLI)
+
+The CLI is still fully functional for terminal-based workflows.
+
+### Quick Start
+
+**Initialize Lyric Vault:**
+```bash
+npm run build
+npm start setup
+```
+
+**Add your first lyric:**
 ```bash
 npm start add "coffee stains on your old sweater, memories we can't forget"
 ```
@@ -87,97 +122,80 @@ Rhymes: etter, orget
 Imagery: visual, tactile
 ```
 
-### List your lyrics
+### CLI Commands
+
+| Command | Description |
+|---------|-------------|
+| `npm start setup` | Initialize database, test Ollama connection |
+| `npm start add <text>` | Add a new lyric with AI analysis |
+| `npm start list [--recent N]` | List recent lyrics (default: 10) |
+| `npm start search <query>` | Search by `theme:X`, `rhyme:Y`, or `mood:Z` |
+| `npm start show <id>` | Display full details of a lyric |
+| `npm start delete <id>` | Remove a lyric from your vault |
+| `npm start suggest <text>` | Find matching lyrics with AI adaptations |
+
+### CLI Examples
+
 ```bash
+# List your lyrics
 npm start list
 npm start list --recent 5
-```
 
-### Search by theme, mood, or rhyme
-```bash
+# Search by theme, mood, or rhyme
 npm start search "theme:love"
 npm start search "mood:melancholic"
 npm start search "rhyme:ight"
 npm start search "theme:nostalgia mood:reflective"
-```
 
-### Get AI suggestions
-```bash
+# Get AI suggestions
 npm start suggest "I still remember mornings when the world felt light"
-```
 
-**Example output:**
-```
-Analyzing your lyric...
-Finding matches in your vault...
-Generating AI adaptations...
-
-Found 2 matches
-
-#1 Match (40%)
-"coffee stains on your old sweater, memories we can't forget"
-
-Why it matches:
-  • Shared themes: nostalgia, memory
-  • Similar mood
-  • Compatible rhyme patterns
-
-Suggested adaptation:
-  "I still remember coffee mornings, your sweater soft and light"
-
----
-
-#2 Match (35%)
-"we were young and reckless burning bright like summer stars"
-
-Why it matches:
-  • Shared themes: memory
-  • Compatible rhyme patterns
-
-Suggested adaptation:
-  "We were young when mornings felt so light, burning bright"
-```
-
-### View a specific lyric
-```bash
+# View or delete a specific lyric
 npm start show 1
-```
-
-### Delete a lyric
-```bash
 npm start delete 3
 ```
 
-## Commands Reference
-
-| Command | Description |
-|---------|-------------|
-| `setup` | Initialize database, test Ollama connection, save config |
-| `add <text>` | Add a new lyric with AI analysis |
-| `list [--recent N]` | List recent lyrics (default: 10) |
-| `search <query>` | Search by `theme:X`, `rhyme:Y`, or `mood:Z` |
-| `show <id>` | Display full details of a lyric |
-| `delete <id>` | Remove a lyric from your vault |
-| `suggest <text>` | Find matching lyrics with AI adaptations |
+---
 
 ## Development
 
 ```bash
-# Run in development mode (no build needed)
+# GUI development (hot reload)
+npm run electron:dev
+
+# CLI development (no build needed)
 npm run dev add "your lyric here"
 
-# Build for production
+# Build CLI only
 npm run build
 
-# Run production build
-npm start add "your lyric here"
+# Build GUI only
+npm run gui:build
+
+# Build everything for distribution
+npm run electron:build
 ```
+
+## All npm Scripts
+
+| Script | Description |
+|--------|-------------|
+| `npm run dev` | Run CLI in development mode |
+| `npm run build` | Build CLI to `dist/` |
+| `npm start` | Run built CLI |
+| `npm run gui:dev` | Start GUI dev server only |
+| `npm run gui:build` | Build GUI to `dist-gui/` |
+| `npm run electron:dev` | Run full Electron app in dev mode |
+| `npm run electron:run` | Run production Electron app (builds GUI first) |
+| `npm run electron:build` | Build distributable Electron app |
 
 ## Data Storage
 
 All data is stored locally in `~/.lyric-vault/`:
 - `lyrics.db` - SQLite database with your lyrics
 - `config.json` - Configuration (Ollama URL, model, etc.)
+
+Both the GUI and CLI share the same database, so you can use whichever interface you prefer.
 
 ## Configuration
 
@@ -190,7 +208,9 @@ Default configuration:
 }
 ```
 
-Edit `~/.lyric-vault/config.json` to change settings.
+You can edit settings via:
+- **GUI**: Settings page
+- **CLI**: Edit `~/.lyric-vault/config.json` directly
 
 ## How It Works
 
@@ -209,16 +229,6 @@ Edit `~/.lyric-vault/config.json` to change settings.
    - Imagery overlap (10% weight)
 
    Plus AI-generated adaptations that blend your stored lyrics with your current context.
-
-## Portfolio Context
-
-This project was built as a demonstration of:
-- **AI-augmented CLI tools** - Practical integration of local LLMs
-- **TypeScript best practices** - Strict typing, modular architecture
-- **SQLite for local-first apps** - No cloud dependencies
-- **Clean CLI design** - Intuitive commands with helpful output
-
-Built with Claude Code in an iterative development process.
 
 ## License
 
