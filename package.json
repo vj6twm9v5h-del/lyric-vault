@@ -11,11 +11,11 @@
     "gui:dev": "vite --config gui/vite.config.ts",
     "gui:build": "vite build --config gui/vite.config.ts",
     "electron:dev": "concurrently -k \"npm run gui:dev\" \"npm run electron:wait\"",
-    "electron:wait": "wait-on http://localhost:5173 && npm run electron:start",
+    "electron:wait": "wait-on http://localhost:5173 && npm run electron:compile && npm run electron:start",
     "electron:start": "electron .",
-    "electron:run": "NODE_ENV=production npm run gui:build && NODE_ENV=production electron .",
+    "electron:run": "NODE_ENV=production npm run gui:build && NODE_ENV=production npm run electron:compile && electron .",
     "electron:build": "npm run gui:build && npm run electron:compile && electron-builder",
-    "electron:compile": "tsc -p tsconfig.electron.json",
+    "electron:compile": "npx esbuild electron/main.ts --bundle --platform=node --external:electron --external:better-sqlite3 --outfile=dist-electron/main.cjs && npx esbuild electron/preload.ts --bundle --platform=node --external:electron --outfile=dist-electron/preload.cjs",
     "postinstall": "electron-builder install-app-deps"
   },
   "bin": {

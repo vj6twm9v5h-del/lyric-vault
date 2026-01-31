@@ -11,7 +11,7 @@ function createWindow(): void {
     minWidth: 900,
     minHeight: 600,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
+      preload: path.join(__dirname, 'preload.cjs'),
       contextIsolation: true,
       nodeIntegration: false,
     },
@@ -26,7 +26,7 @@ function createWindow(): void {
   });
 
   // Load Vite dev server in development, built files in production
-  if (process.env.NODE_ENV === 'development' || !app.isPackaged) {
+  if (!app.isPackaged) {
     mainWindow.loadURL('http://localhost:5173');
     mainWindow.webContents.openDevTools();
   } else {

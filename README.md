@@ -4,6 +4,16 @@ A local-first tool for musicians to capture and intelligently retrieve lyrical i
 
 **Now with a desktop GUI!**
 
+## Download
+
+### macOS (Apple Silicon)
+1. Download the latest `.dmg` from [Releases](../../releases/latest)
+2. Open the DMG and drag **Lyric Vault** to Applications
+3. Right-click the app → **Open** (required first time, since the app isn't code-signed)
+4. Make sure [Ollama](https://ollama.ai) is running with `ollama serve`
+
+> **Note**: Intel Mac and Windows/Linux builds coming soon. For now, build from source (see below).
+
 ## Overview
 
 Lyric Vault helps songwriters and lyricists:

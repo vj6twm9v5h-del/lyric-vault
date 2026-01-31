@@ -213,34 +213,64 @@ async function analyzeLyric(
 ): Promise<{ analysis: LyricAnalysis; rawResponse: string }> {
   const prompt = buildAnalysisPrompt(text);
 
-  const response = await axios.post(
-    `${config.ollama_url}/api/generate`,
-    {
-      model: config.ollama_model,
-      prompt: prompt,
-      stream: false,
-      options: { temperature: 0.3 },
-    },
-    { timeout: 60000 }
-  );
+  try {
+    const response = await axios.post(
+      `${config.ollama_url}/api/generate`,
+      {
+        model: config.ollama_model,
+        prompt: prompt,
+        stream: false,
+        options: { temperature: 0.3 },
+      },
+      { timeout: 60000 }
+    );
 
-  const rawResponse = response.data.response;
-  const analysis = parseAnalysisResponse(rawResponse);
-  return { analysis, rawResponse };
+    const rawResponse = response.data.response;
+    const analysis = parseAnalysisResponse(rawResponse);
+    return { analysis, rawResponse };
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      if (error.code === 'ECONNREFUSED') {
+        throw new Error('Ollama is not running. Please start Ollama with: ollama serve');
+      }
+      if (error.code === 'ETIMEDOUT' || error.code === 'ECONNABORTED') {
+        throw new Error('Ollama request timed out. The model may be loading.');
+      }
+      if (error.response?.status === 404) {
+        throw new Error(`Model '${config.ollama_model}' not found. Run: ollama pull ${config.ollama_model}`);
+      }
+    }
+    throw new Error(`Ollama analysis failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  }
 }
 
 async function generateText(prompt: string, config: Config): Promise<string> {
-  const response = await axios.post(
-    `${config.ollama_url}/api/generate`,
-    {
-      model: config.ollama_model,
-      prompt: prompt,
-      stream: false,
-      options: { temperature: 0.7 },
-    },
-    { timeout: 60000 }
-  );
-  return response.data.response;
+  try {
+    const response = await axios.post(
+      `${config.ollama_url}/api/generate`,
+      {
+        model: config.ollama_model,
+        prompt: prompt,
+        stream: false,
+        options: { temperature: 0.7 },
+      },
+      { timeout: 60000 }
+    );
+    return response.data.response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      if (error.code === 'ECONNREFUSED') {
+        throw new Error('Ollama is not running. Please start Ollama with: ollama serve');
+      }
+      if (error.code === 'ETIMEDOUT' || error.code === 'ECONNABORTED') {
+        throw new Error('Ollama request timed out. The model may be loading.');
+      }
+      if (error.response?.status === 404) {
+        throw new Error(`Model '${config.ollama_model}' not found. Run: ollama pull ${config.ollama_model}`);
+      }
+    }
+    throw new Error(`Ollama generation failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  }
 }
 
 // ============================================================================
