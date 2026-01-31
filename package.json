@@ -8,12 +8,8 @@
     "build": "tsc",
     "dev": "tsx src/index.ts",
     "start": "node dist/index.js",
-    "gui:dev": "vite --config gui/vite.config.ts",
     "gui:build": "vite build --config gui/vite.config.ts",
-    "electron:dev": "concurrently -k \"npm run gui:dev\" \"npm run electron:wait\"",
-    "electron:wait": "wait-on http://localhost:5173 && npm run electron:compile && npm run electron:start",
-    "electron:start": "electron .",
-    "electron:run": "NODE_ENV=production npm run gui:build && NODE_ENV=production npm run electron:compile && electron .",
+    "electron:run": "npm run gui:build && npm run electron:compile && electron .",
     "electron:build": "npm run gui:build && npm run electron:compile && electron-builder",
     "electron:compile": "npx esbuild electron/main.ts --bundle --platform=node --external:electron --external:better-sqlite3 --outfile=dist-electron/main.cjs && npx esbuild electron/preload.ts --bundle --platform=node --external:electron --outfile=dist-electron/preload.cjs",
     "postinstall": "electron-builder install-app-deps"
@@ -37,15 +33,13 @@
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.0",
-    "concurrently": "^9.1.0",
     "electron": "^33.2.1",
     "electron-builder": "^25.1.8",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.1.1",
     "tsx": "^4.21.0",
-    "vite": "^6.0.7",
-    "wait-on": "^8.0.2"
+    "vite": "^6.0.7"
   },
   "build": {
     "appId": "com.lyricvault.app",
@@ -59,7 +53,7 @@
     ],
     "mac": {
       "category": "public.app-category.music",
-      "target": "dmg"
+      "target": "dir"
     },
     "win": {
       "target": "nsis"

@@ -25,13 +25,8 @@ function createWindow(): void {
     mainWindow?.show();
   });
 
-  // Load Vite dev server in development, built files in production
-  if (!app.isPackaged) {
-    mainWindow.loadURL('http://localhost:5173');
-    mainWindow.webContents.openDevTools();
-  } else {
-    mainWindow.loadFile(path.join(__dirname, '../dist-gui/index.html'));
-  }
+  // Load built files
+  mainWindow.loadFile(path.join(__dirname, '../dist-gui/index.html'));
 
   mainWindow.on('closed', () => {
     mainWindow = null;

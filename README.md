@@ -7,8 +7,8 @@ A local-first tool for musicians to capture and intelligently retrieve lyrical i
 ## Download
 
 ### macOS (Apple Silicon)
-1. Download the latest `.dmg` from [Releases](../../releases/latest)
-2. Open the DMG and drag **Lyric Vault** to Applications
+1. Download the latest `Lyric Vault.app` from [Releases](../../releases/latest)
+2. Move **Lyric Vault.app** to your Applications folder
 3. Right-click the app → **Open** (required first time, since the app isn't code-signed)
 4. Make sure [Ollama](https://ollama.ai) is running with `ollama serve`
 
@@ -94,7 +94,7 @@ This launches the Lyric Vault desktop app with a clean, modern interface.
 npm run electron:build
 ```
 
-This creates distributable installers in the `release/` directory.
+This creates `Lyric Vault.app` in the `release/mac-arm64/` directory (on Apple Silicon Macs).
 
 ---
 
